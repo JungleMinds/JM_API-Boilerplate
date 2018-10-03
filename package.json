@@ -1,0 +1,12 @@
+{
+  "name": "jm_api_node_boilerplate",
+  "version": "1.0.0",
+  "description": "A boilerplate for web APIs using Node",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": ""
+}
