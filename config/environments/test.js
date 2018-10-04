@@ -1,0 +1,4 @@
+module.exports = {
+  web: {},
+  logging: {}
+};
