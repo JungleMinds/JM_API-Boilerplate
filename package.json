@@ -5,8 +5,25 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "start-dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": ""
+  "license": "",
+  "dependencies": {
+    "awilix": "^3.0.9",
+    "awilix-express": "^1.1.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "cross-env": "^5.2.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-status-monitor": "^1.2.3",
+    "log4js": "^3.0.5",
+    "morgan": "^1.9.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
 }

@@ -1,2 +1,5 @@
 # JM_API_Node
-A boilerplate for web APIs using Node
+
+A boilerplate for web APIs using NodeJS
+
+## Features
