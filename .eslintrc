@@ -8,7 +8,7 @@
   "parserOptions": {
     "ecmaVersion": 2017
   },
-  "plugins": ["react", "flowtype", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error"
   }
