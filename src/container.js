@@ -1,17 +1,16 @@
-const { createContainer, asClass, asFunction, asValue } = require("awilix");
-const { scopePerRequest } = require("awilix-express");
+import { createContainer, asClass, asFunction, asValue } from 'awilix'
+import { scopePerRequest } from 'awilix-express'
 
-const config = require("../config");
+import config from '../config'
 
-const Application = require("./app/Application");
+import Application from './app/Application'
 
-const Server = require("./interfaces/http/Server");
-const router = require("./interfaces/http/router");
-const loggerMiddleware = require("./interfaces/http/logging/loggerMiddleware");
+import Server from './interfaces/http/Server'
+import router from './interfaces/http/router'
+import loggerMiddleware from './interfaces/http/logging/loggerMiddleware'
+import logger from './Infrastructure/logging/logger'
 
-const logger = require("./Infrastructure/logging/logger");
-
-const container = createContainer();
+const container = createContainer()
 
 // System
 container
@@ -25,7 +24,7 @@ container
   })
   .register({
     config: asValue(config)
-  });
+  })
 
 // Middlewares
 container
@@ -34,7 +33,6 @@ container
   })
   .register({
     containerMiddleware: asValue(scopePerRequest(container))
-  });
+  })
 
-
-module.exports = container;
+module.exports = container

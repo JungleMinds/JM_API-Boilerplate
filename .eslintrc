@@ -1,0 +1,15 @@
+{
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "extends": ["standard", "eslint:recommended", "prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "plugins": ["react", "flowtype", "prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

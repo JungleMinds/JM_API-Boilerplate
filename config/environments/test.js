@@ -1,4 +1,4 @@
 module.exports = {
   web: {},
   logging: {}
-};
+}
