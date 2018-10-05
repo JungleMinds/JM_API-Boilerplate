@@ -39,4 +39,4 @@ container
     errorHandler: asValue(config.production ? errorHandler : devErrorHandler)
   })
 
-module.exports = container
+export default container

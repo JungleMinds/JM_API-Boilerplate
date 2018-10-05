@@ -14,4 +14,4 @@ const config = Object.assign(
   envConfig
 )
 
-module.exports = config
+export default config

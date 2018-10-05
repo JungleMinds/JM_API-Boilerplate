@@ -1,6 +1,6 @@
 import path from 'path'
 
-module.exports = controllerUri => {
+export default  controllerUri => {
   const controllerPath = path.resolve('src/interfaces/http', controllerUri)
   const Controller = require(controllerPath)
 

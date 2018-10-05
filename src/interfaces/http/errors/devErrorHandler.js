@@ -1,6 +1,6 @@
 import Status from 'http-status'
 
-module.exports = (err, req, res, next) => {
+export default (err, req, res, next) => {
   const { logger } = req.container.cradle
 
   logger.error(err)
