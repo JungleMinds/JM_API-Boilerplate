@@ -10,18 +10,26 @@
     "clean": "rm -rf build && mkdir build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "",
+  "author": "JungleMinds",
+  "contributors": [
+    {
+      "name": "@a.kabakibi"
+    }
+  ],
+  "license": "MIT",
   "dependencies": {
     "awilix": "^3.0.9",
     "awilix-express": "^1.1.0",
     "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
     "cors": "^2.8.4",
     "cross-env": "^5.2.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-status-monitor": "^1.2.3",
+    "http-status": "^1.2.0",
     "log4js": "^3.0.5",
+    "method-override": "^3.0.0",
     "morgan": "^1.9.1",
     "request": "^2.88.0"
   },
