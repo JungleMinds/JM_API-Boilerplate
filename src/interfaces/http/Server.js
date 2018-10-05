@@ -20,4 +20,4 @@ class Server {
   }
 }
 
-module.exports = Server
+export default Server

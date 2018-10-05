@@ -6,7 +6,7 @@ import compression from 'compression'
 import methodOverride from 'method-override'
 import controller from './utils/createControllerRoutes'
 
-module.exports = ({
+export default ({
   config,
   containerMiddleware,
   loggerMiddleware,
