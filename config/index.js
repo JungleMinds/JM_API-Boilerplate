@@ -1,10 +1,10 @@
-require("dotenv").load();
+import dotenv from 'dotenv'
+const path = require('path')
 
-const path = require("path");
+dotenv.load()
+const ENV = process.env.NODE_ENV || 'development'
 
-const ENV = process.env.NODE_ENV || "development";
-
-const envConfig = require(path.join(__dirname, "environments", ENV));
+const envConfig = require(path.join(__dirname, 'environments', ENV))
 
 const config = Object.assign(
   {
@@ -12,6 +12,6 @@ const config = Object.assign(
     env: ENV
   },
   envConfig
-);
+)
 
-module.exports = config;
+module.exports = config

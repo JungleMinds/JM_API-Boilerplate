@@ -1,8 +1,8 @@
-const container = require("./src/container");
+import container from './src/container'
 
-const app = container.resolve("app");
+const app = container.resolve('app')
 
 app.start().catch(error => {
-  app.logger.error(error.stack);
-  process.exit();
-});
+  app.logger.error(error.stack)
+  process.exit()
+})

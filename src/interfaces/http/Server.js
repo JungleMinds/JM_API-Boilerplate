@@ -1,25 +1,23 @@
-const express = require("express");
-
+import express from 'express'
 class Server {
-  constructor({ config, router, logger}) {
-    this.config = config;
-    this.logger = logger;
-    this.express = express();
+  constructor({ config, router, logger }) {
+    this.config = config
+    this.logger = logger
+    this.express = express()
 
-    this.express.disable("x-powered-by");
-    this.express.use(router);
+    this.express.disable('x-powered-by')
+    this.express.use(router)
   }
 
   start() {
-    return new Promise((resolve) => {
-      const http = this.express
-        .listen(this.config.web.port, () => {
-          const { port } = http.address();
-          this.logger.info(`[p ${process.pid}] Listening at port ${port}`);
-          resolve();
-        });
-    });
+    return new Promise(resolve => {
+      const http = this.express.listen(this.config.web.port, () => {
+        const { port } = http.address()
+        this.logger.info(`[p ${process.pid}] Listening at port ${port}`)
+        resolve()
+      })
+    })
   }
 }
 
-module.exports = Server;
+module.exports = Server

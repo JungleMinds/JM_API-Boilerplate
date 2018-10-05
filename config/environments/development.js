@@ -1,4 +1,4 @@
-const path = require("path");
+import path from 'path'
 
 module.exports = {
   web: {
@@ -6,10 +6,10 @@ module.exports = {
   },
   logging: {
     appenders: {
-      out: { type: "console" }
+      out: { type: 'console' }
     },
     categories: {
-      default: { appenders: ["out"], level: "info" }
+      default: { appenders: ['out'], level: 'info' }
     }
   }
-};
+}

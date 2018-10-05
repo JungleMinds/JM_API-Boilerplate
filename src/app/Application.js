@@ -1,12 +1,11 @@
 class Application {
-    constructor({ server }) {
-      this.server = server
-    }
-  
-    async start() {
-      await this.server.start();
-    }
+  constructor({ server }) {
+    this.server = server
   }
-  
-  module.exports = Application;
-  
+
+  async start() {
+    await this.server.start()
+  }
+}
+
+module.exports = Application
