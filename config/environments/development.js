@@ -1,6 +1,6 @@
 import path from 'path'
 
-export default {
+module.exports = {
   web: {
     port: 4050
   },
