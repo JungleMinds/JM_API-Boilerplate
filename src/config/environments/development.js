@@ -1,6 +1,8 @@
+const PORT = process.env.PORT || 4050
+
 export default {
   web: {
-    port: process.env.PORT
+    port: PORT
   },
   logging: {
     appenders: {
