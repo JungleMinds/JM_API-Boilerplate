@@ -1,8 +1,8 @@
 import morgan from 'morgan'
-import LoggerStreamAdapter from 'src/Infrastructure/logging/LoggerStreamAdapter'
+import convertLoggerToStream from '../utils/convertLoggerToStream'
 
 export default ({ logger }) => {
   return morgan('dev', {
-    stream: LoggerStreamAdapter.toStream(logger)
+    stream: convertLoggerToStream(logger)
   })
 }
