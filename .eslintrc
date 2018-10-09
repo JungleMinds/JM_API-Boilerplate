@@ -10,6 +10,17 @@
   },
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-console": [
+      1,
+      {
+        "allow": [
+          "info",
+          "warn",
+          "error"
+        ]
+      }
+    ],
+    "eol-last": ["error", "always"]
   }
 }
