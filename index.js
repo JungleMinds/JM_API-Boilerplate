@@ -1,14 +1,11 @@
-import container from './src/container'
+// Support ES Modules
+const _require = require('esm')(module /*, options*/)
 
-const app = container.resolve('app')
-
-app.start().catch(error => {
-  app.logger.error(error.stack)
-  process.exit()
+// Add babel for older suport
+require('@babel/register')({
+  // This will override `node_modules` ignoring - you can alternatively pass
+  // an array of strings to be explicitly matched or a regex / glob
+  ignore: []
 })
 
-// terminate the Node.js process with a non-zero exit code.
-process.on('SIGINT', async () => {
-  await app.stop()
-  process.exit(0)
-})
+module.exports = _require('./src/index.js')

@@ -5,9 +5,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start-dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon --exec babel-node index.js",
-    "build": "npm run clean && babel src --out-dir dist",
-    "clean": "rm -rf build && mkdir build",
+    "start": "nodemon scripts/start.js",
+    "build": "npm run lint && node scripts/build.js",
+    "serve": "npm run build && node dist/main.js",
     "lint": "eslint \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,9 +19,11 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "ajv": "6.5.4",
     "awilix": "3.0.9",
     "awilix-express": "1.1.0",
     "body-parser": "1.18.3",
+    "chalk": "2.4.1",
     "compression": "1.7.3",
     "cors": "2.8.4",
     "cross-env": "5.2.0",
@@ -39,6 +41,7 @@
     "@babel/core": "7.1.2",
     "@babel/node": "7.0.0",
     "@babel/preset-env": "7.1.0",
+    "@babel/register": "7.0.0",
     "babel-eslint": "10.0.1",
     "eslint": "5.6.1",
     "eslint-config-prettier": "3.1.0",
@@ -48,7 +51,11 @@
     "eslint-plugin-prettier": "3.0.0",
     "eslint-plugin-promise": "4.0.1",
     "eslint-plugin-standard": "4.0.0",
+    "esm": "3.0.84",
+    "fs-extra": "7.0.0",
     "nodemon": "1.18.4",
-    "prettier": "1.14.3"
+    "prettier": "1.14.3",
+    "webpack": "4.20.2",
+    "webpack-node-externals": "1.7.2"
   }
 }
