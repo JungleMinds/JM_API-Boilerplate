@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   web: {
     port: process.env.PORT
   },
