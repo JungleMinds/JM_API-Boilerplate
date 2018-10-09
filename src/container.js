@@ -11,7 +11,7 @@ import loggerMiddleware from './interfaces/http/logging/loggerMiddleware'
 import errorHandler from './interfaces/http/errors/errorHandler'
 import devErrorHandler from './interfaces/http/errors/devErrorHandler'
 
-import logger from './Infrastructure/logging/logger'
+import logger from './infrastructure/logging/logger'
 
 const container = createContainer()
 

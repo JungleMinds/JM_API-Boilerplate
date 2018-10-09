@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-const path = require('path')
+import path from 'path'
 
 dotenv.load()
 const ENV = process.env.NODE_ENV || 'development'

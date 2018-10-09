@@ -1,6 +1,8 @@
 import Status from 'http-status'
 
 export default (err, req, res, next) => {
+  const { logger } = req.container.cradle
+
   logger.error(err)
 
   res.status(Status.INTERNAL_SERVER_ERROR).json({

@@ -8,6 +8,7 @@
     "start-dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon --exec babel-node index.js",
     "build": "npm run clean && babel src --out-dir dist",
     "clean": "rm -rf build && mkdir build",
+    "lint": "eslint \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "JungleMinds",
