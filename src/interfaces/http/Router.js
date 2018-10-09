@@ -34,8 +34,9 @@ export default ({
   /*
    * Add your API routes here
    */
-  router.use('/api', apiRouter)
+  apiRouter.use('/user', controller('user'))
 
+  router.use('/api', apiRouter)
   router.use(errorHandler)
 
   return router
