@@ -4,6 +4,10 @@
 process.env.BABEL_ENV = 'production'
 process.env.NODE_ENV = 'production'
 
+// Ensure environment variables are read.
+require('./utils/env')
+
+// Ensure dependency requirements are met.
 require('./utils/checkDependencies')
 
 // Makes the script crash on unhandled rejections instead of silently
@@ -12,9 +16,6 @@ require('./utils/checkDependencies')
 process.on('unhandledRejection', err => {
   throw err
 })
-
-// Ensure environment variables are read.
-// require('../config/env')
 
 const fs = require('fs-extra')
 const path = require('path')
