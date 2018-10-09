@@ -1,8 +1,8 @@
-import path from 'path'
+const PORT = process.env.PORT || 8000
 
 export default {
   web: {
-    port: 4050
+    port: PORT
   },
   logging: {
     appenders: {

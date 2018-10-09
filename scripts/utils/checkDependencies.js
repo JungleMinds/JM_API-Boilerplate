@@ -1,3 +1,5 @@
+'use strict'
+
 /* eslint-disable no-console */
 
 require('check-dependencies')({}, result => {
