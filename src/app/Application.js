@@ -6,6 +6,10 @@ class Application {
   async start() {
     await this.server.start()
   }
+
+  async stop() {
+    await this.server.stop()
+  }
 }
 
 export default Application
