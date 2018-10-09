@@ -8,14 +8,13 @@
     "start": "nodemon scripts/start.js",
     "build": "npm run lint && node scripts/build.js",
     "serve": "npm run build && node dist/main.js",
-    "lint": "eslint \"src/**/*.js\"",
+    "lint": "eslint \"src/**/*.js\" \"scripts/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "JungleMinds",
+  "author": "Jungle Minds <info@jungleminds.com>",
   "contributors": [
-    {
-      "name": "@a.kabakibi"
-    }
+    "Ahmad Kababibi <ahmad.kabakibi@jungleminds.com>",
+    "Marvin de Bruin <marvin.de.bruin@jungleminds.com>"
   ],
   "license": "MIT",
   "dependencies": {
@@ -43,6 +42,7 @@
     "@babel/preset-env": "7.1.0",
     "@babel/register": "7.0.0",
     "babel-eslint": "10.0.1",
+    "check-dependencies": "1.1.0",
     "eslint": "5.6.1",
     "eslint-config-prettier": "3.1.0",
     "eslint-config-standard": "12.0.0",
