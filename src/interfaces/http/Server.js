@@ -3,6 +3,15 @@ import helmet from 'helmet'
 
 class Server {
   constructor({ config, router, logger }) {
+    // Message Of The Day
+    this.motd = `
+    __            __        _                __   __
+     ||   | |\\ | / _\` |    |__  |\\/| | |\\ | |  \\ /__\`
+  \\__/ \\__/ | \\| \\__> |___ |___ |  | | | \\| |__/ .__/
+
+  by: Jungle Minds
+  `
+
     this.config = config
     this.logger = logger
     this.express = express()
@@ -16,15 +25,9 @@ class Server {
     return new Promise(resolve => {
       this.http = this.express.listen(this.config.web.port, () => {
         const { port } = this.http.address()
-        this.logger.info(`
-          __            __        _                __   __
-           ||   | |\\ | / _\` |    |__  |\\/| | |\\ | |  \\ /__\`
-        \\__/ \\__/ | \\| \\__> |___ |___ |  | | | \\| |__/ .__/
-
-        version: ${this.config.version}
-        by: Jungle Minds
-        `)
-        this.logger.info(`[p ${process.pid}] Listening at port ${port}`)
+        this.logger.info(this.motd)
+        this.logger.info(`Listening at port ${port}`)
+        this.logger.info(`on pId [${process.pid}]`)
         resolve()
       })
     })
@@ -33,6 +36,7 @@ class Server {
   stop() {
     return new Promise(resolve => {
       this.http.close(() => {
+        this.http = null
         this.logger.info(`Shutting down server...`)
         resolve()
       })

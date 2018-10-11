@@ -2,9 +2,17 @@ import path from 'path'
 
 export default controllerURI => {
   const controllerPath = path.resolve(
-    'src/interfaces/http/controllers',
+    __dirname,
+    '../controllers',
     controllerURI
   )
-  const controller = require(controllerPath).default
+  let controller = {}
+
+  try {
+    controller = require(controllerPath).default
+  } catch (err) {
+    throw new Error(`Can't find a controller for '${controllerURI}'`)
+  }
+
   return controller.router
 }
