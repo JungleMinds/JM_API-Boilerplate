@@ -1,5 +1,5 @@
-const { Router } = require('express')
-const Status = require('http-status')
+import { Router } from 'express'
+import status from 'http-status'
 
 export default {
   get router() {
@@ -10,6 +10,6 @@ export default {
   },
 
   index(req, res, next) {
-    res.status(Status.OK).json({ msg: 'welcome to JungleMinds API V 0.1' })
+    res.status(status.OK).json({ message: 'welcome to JungleMinds API V 0.1' })
   }
 }
