@@ -6,8 +6,6 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon scripts/start.js",
-    "build": "npm run lint && node scripts/build.js",
-    "serve": "npm run build && node dist/main.js",
     "lint": "eslint \"src/**/*.js\" \"scripts/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "precommit": "npm run lint"
@@ -53,11 +51,8 @@
     "eslint-plugin-promise": "4.0.1",
     "eslint-plugin-standard": "4.0.0",
     "esm": "3.0.84",
-    "fs-extra": "7.0.0",
     "husky": "1.1.1",
     "nodemon": "1.18.4",
-    "prettier": "1.14.3",
-    "webpack": "4.20.2",
-    "webpack-node-externals": "1.7.2"
+    "prettier": "1.14.3"
   }
 }
