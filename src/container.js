@@ -13,6 +13,8 @@ import devErrorHandler from './interfaces/http/errors/devErrorHandler'
 
 import logger from './infrastructure/logging/logger'
 
+const ENV = process.env.NODE_ENV
+
 const container = createContainer()
 
 // System
@@ -26,7 +28,7 @@ container
     logger: asFunction(logger).singleton()
   })
   .register({
-    config: asValue(config)
+    config: asValue(config(ENV))
   })
 
 // Middlewares
