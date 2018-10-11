@@ -19,6 +19,7 @@ class Server {
            ||   | |\\ | / _\` |    |__  |\\/| | |\\ | |  \\ /__\`
         \\__/ \\__/ | \\| \\__> |___ |___ |  | | | \\| |__/ .__/
 
+        version: ${this.config.version}
         by: Jungle Minds
         `)
         this.logger.info(`[p ${process.pid}] Listening at port ${port}`)
