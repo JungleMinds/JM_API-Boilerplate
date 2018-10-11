@@ -8,7 +8,7 @@ class Server {
     this.express = express()
     this.http = null
 
-    this.express.use(helmet())
+    this.express.use(helmet(this.config.web.security.headers))
     this.express.use(router)
   }
 
