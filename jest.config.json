@@ -1,0 +1,21 @@
+{
+  "coverageThreshold": {
+    "global": {
+      "functions": 80,
+      "lines": 80
+    }
+  },
+  "collectCoverageFrom": [
+    "src/**/*.js",
+    "!<rootDir>/package.spec.js"
+  ],
+  "coverageReporters": [
+    "lcov",
+    "text"
+  ],
+  "testMatch": [
+    "<rootDir>/package.spec.js",
+    "<rootDir>/src/**/?(*.)spec.js"
+  ],
+  "testEnvironment": "node"
+}
