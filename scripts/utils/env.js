@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const execSync = require('child_process').execSync
 
 const dotEnvFile = path.join(__dirname, '../../.env')
 
@@ -37,3 +38,10 @@ dotenvFiles.forEach(dotenvFile => {
     )
   }
 })
+
+// Add git versions if possible
+process.env.COMMIT_HASH =
+  process.env.COMMIT_HASH ||
+  execSync('git rev-parse HEAD')
+    .toString()
+    .trim()
