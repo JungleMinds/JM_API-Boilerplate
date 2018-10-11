@@ -5,9 +5,15 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "nodemon scripts/start.js",
+    "start": "node scripts/start.js",
+    "start:watch": "nodemon scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage",
+    "test:coverage:watch": "npm run test -- --coverage --watchAll",
+    "serve": "npm run build && node dist/main.js",
     "lint": "eslint \"src/**/*.js\" \"scripts/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "precommit": "npm run lint"
   },
   "author": "Jungle Minds <info@jungleminds.com>",
@@ -42,7 +48,9 @@
     "@babel/node": "7.0.0",
     "@babel/preset-env": "7.1.0",
     "@babel/register": "7.0.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.1",
+    "babel-jest": "23.6.0",
     "check-dependencies": "1.1.0",
     "eslint": "5.6.1",
     "eslint-config-prettier": "3.1.0",
@@ -54,6 +62,7 @@
     "eslint-plugin-standard": "4.0.0",
     "esm": "3.0.84",
     "husky": "1.1.1",
+    "jest": "23.6.0",
     "nodemon": "1.18.4",
     "prettier": "1.14.3"
   }
