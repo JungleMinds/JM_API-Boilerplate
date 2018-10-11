@@ -1,9 +1,11 @@
+import path from 'path'
 import { Router } from 'express'
 import statusMonitor from 'express-status-monitor'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import methodOverride from 'method-override'
+import favicon from 'serve-favicon'
 import controller from './utils/createControllerRoutes'
 
 export default ({
@@ -13,6 +15,7 @@ export default ({
   errorHandler
 }) => {
   const router = Router()
+  router.use(favicon(path.join(__dirname, '../../assets', 'favicon.ico')))
 
   if (config.env === 'development') {
     router.use(statusMonitor())
