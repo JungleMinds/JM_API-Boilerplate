@@ -7,6 +7,7 @@
   },
   "collectCoverageFrom": [
     "src/**/*.js",
+    "!src/index.js",
     "!<rootDir>/package.spec.js"
   ],
   "coverageReporters": [

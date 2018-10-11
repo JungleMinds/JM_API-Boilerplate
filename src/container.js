@@ -1,7 +1,7 @@
 import { createContainer, asClass, asFunction, asValue } from 'awilix'
 import { scopePerRequest } from 'awilix-express'
 
-import config from './config'
+import createConfig from './config'
 
 import Application from './app/Application'
 
@@ -15,6 +15,7 @@ import logger from './infrastructure/logging/logger'
 
 const ENV = process.env.NODE_ENV
 
+const config = createConfig(ENV)
 const container = createContainer()
 
 // System
@@ -28,7 +29,7 @@ container
     logger: asFunction(logger).singleton()
   })
   .register({
-    config: asValue(config(ENV))
+    config: asValue(config)
   })
 
 // Middlewares
