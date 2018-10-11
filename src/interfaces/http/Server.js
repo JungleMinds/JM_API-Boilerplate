@@ -1,4 +1,6 @@
 import express from 'express'
+import helmet from 'helmet'
+
 class Server {
   constructor({ config, router, logger }) {
     this.config = config
@@ -6,7 +8,7 @@ class Server {
     this.express = express()
     this.http = null
 
-    this.express.disable('x-powered-by')
+    this.express.use(helmet())
     this.express.use(router)
   }
 
