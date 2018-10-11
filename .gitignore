@@ -18,6 +18,3 @@ yarn-error.log*
 
 # Logs
 *.log
-
-# Production
-/dist
