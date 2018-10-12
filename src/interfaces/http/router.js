@@ -34,6 +34,10 @@ export default ({
     .use(bodyParser.json())
     .use(compression())
 
+  apiRouter.get('/', (req, res, next) => {
+    res.status(200).json({ msg: 'welcome to JungleMinds API V 0.1' })
+  })
+
   /*
    * Add your API routes here
    */
