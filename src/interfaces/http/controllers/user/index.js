@@ -1,5 +1,6 @@
-const { Router } = require('express')
-const Status = require('http-status')
+import { Router } from 'express'
+import { inject } from 'awilix-express'
+import Status from 'http-status'
 
 export default {
   get router() {
@@ -9,7 +10,16 @@ export default {
     return router
   },
 
-  index(req, res, next) {
-    res.status(Status.OK).json({ msg: 'welcome to JungleMinds API V 0.1' })
-  }
+  //inject(middlewareFactory): resolves the middleware per request.
+  index: inject(({ getAllUsers }) => (req, res, next) => {
+    const { SUCCESS, ERROR } = getAllUsers.outputs
+
+    getAllUsers
+      .on(SUCCESS, users => {
+        res.status(Status.OK).json(users)
+      })
+      .on(ERROR, next)
+
+    getAllUsers.execute()
+  })
 }
