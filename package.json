@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "ajv": "6.5.4",
-    "awilix": "3.0.9",
+    "awilix": "4.0.0",
     "awilix-express": "1.1.0",
     "body-parser": "1.18.3",
     "chalk": "2.4.1",
