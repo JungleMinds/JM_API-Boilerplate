@@ -4,6 +4,9 @@ import { scopePerRequest } from 'awilix-express'
 import createConfig from './config'
 
 import Application from './app/Application'
+import { GetAllUsers } from './app/useCases/user'
+
+import { UserRepository } from './infrastructure/repositories/user/index'
 
 import Server from './interfaces/http/Server'
 import router from './interfaces/http/router'
@@ -33,13 +36,27 @@ container
   })
 
 // Middlewares
-container
-  .register({
-    loggerMiddleware: asFunction(loggerMiddleware).singleton()
-  })
-  .register({
-    containerMiddleware: asValue(scopePerRequest(container)),
-    errorHandler: asValue(config.production ? errorHandler : devErrorHandler)
-  })
+
+// Add the middleware, passing it your Awilix container. This will attach a scoped container on the context.
+container.register({
+  containerMiddleware: asValue(scopePerRequest(container))
+})
+
+container.register({
+  loggerMiddleware: asFunction(loggerMiddleware).singleton()
+})
+container.register({
+  errorHandler: asValue(config.production ? errorHandler : devErrorHandler)
+})
+
+// Repositories
+container.register({
+  usersRepository: asClass(UserRepository).singleton()
+})
+
+// EventStore use cases
+container.register({
+  getAllUsers: asClass(GetAllUsers)
+})
 
 export default container
