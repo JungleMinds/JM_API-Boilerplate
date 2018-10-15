@@ -1,7 +1,10 @@
 import { attributes } from 'structure'
 
+//Structure provides a simple interface which allows to add attributes
+//to ES6 classes based on a schema, with validations and type coercion.
+
 const user = attributes({
-  id: Number,
+  id: String,
   name: {
     type: String,
     required: true
@@ -9,7 +12,7 @@ const user = attributes({
 })(
   class User {
     greet() {
-      return `Hello ${this.name}`
+      return `Hello ${this.name} `
     }
   }
 )

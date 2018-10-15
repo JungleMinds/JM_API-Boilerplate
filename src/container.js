@@ -4,7 +4,7 @@ import { scopePerRequest } from 'awilix-express'
 import createConfig from './config'
 
 import Application from './app/Application'
-import { GetAllUsers } from './app/useCases/user'
+import { GetAllUsers, CreateUser } from './app/useCases/user'
 
 import { UserRepository } from './infrastructure/repositories/user/index'
 
@@ -56,7 +56,8 @@ container.register({
 
 // EventStore use cases
 container.register({
-  getAllUsers: asClass(GetAllUsers)
+  getAllUsers: asClass(GetAllUsers),
+  createUser: asClass(CreateUser)
 })
 
 export default container
