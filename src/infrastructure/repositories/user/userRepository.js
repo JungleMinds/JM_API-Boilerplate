@@ -12,6 +12,27 @@ class UserRepository {
       ]
     }
   }
+
+  async create(user) {
+    /*
+    validate the object structure based on its schema. 
+    The method will return an object with the property valid 
+    (with the value true if it's valid, and false if invalid). 
+    If valid is false the returned object will also have a property errors,
+    with an array of validation errors. */
+
+    const { valid, errors } = user.validate()
+
+    if (!valid) {
+      const error = new Error('ValidationError')
+      error.details = errors
+
+      throw error
+    }
+
+    const newUser = user //await for db creation method
+    return newUser
+  }
 }
 
 export default UserRepository
