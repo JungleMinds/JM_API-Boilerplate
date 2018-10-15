@@ -23,7 +23,7 @@ const createOutputs = outputsArray => {
   return outputsArray.reduce((obj, output) => {
     obj[output] = output
     return obj
-  }, Object.create(null))
+  }, {})
 }
 
 export default EventStore
