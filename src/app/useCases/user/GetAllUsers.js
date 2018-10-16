@@ -4,6 +4,7 @@ class GetAllUsers extends EventStore {
   constructor({ usersRepository }) {
     super()
     this.usersRepository = usersRepository
+    GetAllUsers.setOutputs(['SUCCESS', 'ERROR'])
   }
 
   async execute() {
@@ -20,7 +21,5 @@ class GetAllUsers extends EventStore {
     }
   }
 }
-
-GetAllUsers.setOutputs(['SUCCESS', 'ERROR'])
 
 export default GetAllUsers
