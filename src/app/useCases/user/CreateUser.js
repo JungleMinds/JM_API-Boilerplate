@@ -5,6 +5,7 @@ class CreateUser extends EventStore {
   constructor({ usersRepository }) {
     super()
     this.usersRepository = usersRepository
+    CreateUser.setOutputs(['SUCCESS', 'ERROR', 'VALIDATION_ERROR'])
   }
 
   async execute(userData) {
@@ -23,7 +24,5 @@ class CreateUser extends EventStore {
     }
   }
 }
-
-CreateUser.setOutputs(['SUCCESS', 'ERROR', 'VALIDATION_ERROR'])
 
 export default CreateUser
