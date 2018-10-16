@@ -15,22 +15,22 @@ export default {
   },
 
   //inject(middlewareFactory): resolves the middleware per request.
-  index: inject(({ getAllUsers }) => (req, res, next) => {
-    const { SUCCESS, ERROR } = getAllUsers.outputs
+  index: inject(({ userGetAll }) => (req, res, next) => {
+    const { SUCCESS, ERROR } = userGetAll.outputs
 
-    getAllUsers
+    userGetAll
       .on(SUCCESS, users => {
         res.status(Status.OK).json(users)
       })
       .on(ERROR, next)
 
-    getAllUsers.execute()
+    userGetAll.execute()
   }),
 
-  create: inject(({ createUser }) => (req, res, next) => {
-    const { SUCCESS, ERROR, VALIDATION_ERROR } = createUser.outputs
+  create: inject(({ userCreate }) => (req, res, next) => {
+    const { SUCCESS, ERROR, VALIDATION_ERROR } = userCreate.outputs
 
-    createUser
+    userCreate
       .on(SUCCESS, user => {
         res.status(Status.CREATED).json(user)
       })
@@ -41,10 +41,10 @@ export default {
         })
       })
       .on(ERROR, next)
-    createUser.execute(req.body)
+    userCreate.execute(req.body)
   }),
 
-  getById: inject(({ getUser }) => (req, res, next) => {}),
-  update: inject(({ updateUser }) => (req, res, next) => {}),
-  delete: inject(({ deleteUser }) => (req, res, next) => {})
+  getById: inject(({ userGet }) => (req, res, next) => {}),
+  update: inject(({ userUpdate }) => (req, res, next) => {}),
+  delete: inject(({ userDelete }) => (req, res, next) => {})
 }

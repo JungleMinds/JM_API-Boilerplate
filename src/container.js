@@ -53,8 +53,8 @@ container.register({
 
 // EventStore use cases
 container.register({
-  getAllUsers: asClass(GetAllUsers),
-  createUser: asClass(CreateUser)
+  userGetAll: asClass(GetAllUsers),
+  userCreate: asClass(CreateUser)
 })
 
 export default container
