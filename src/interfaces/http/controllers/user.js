@@ -22,6 +22,7 @@ export default {
       .on(SUCCESS, users => {
         res.status(Status.OK).json(users)
       })
+      // TODO add error handling action
       .on(ERROR, next)
 
     userGetAll.execute()
@@ -40,6 +41,7 @@ export default {
           details: error.details
         })
       })
+      // TODO add error handling action
       .on(ERROR, next)
     userCreate.execute(req.body)
   }),
