@@ -32,7 +32,7 @@ export default ({
     .use(compression())
 
   apiRouter.get('/', (req, res, next) => {
-    res.status(200).json({ msg: 'welcome to JungleMinds API V 0.1' })
+    res.status(200).json({ message: 'welcome to JungleMinds API V 0.1' })
   })
 
   /*
