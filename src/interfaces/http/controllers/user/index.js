@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { inject } from 'awilix-express'
-import Status from 'http-status'
+import status from 'http-status'
 
 export default {
   get router() {
@@ -20,7 +20,7 @@ export default {
 
     userGetAll
       .on(SUCCESS, users => {
-        res.status(Status.OK).json(users)
+        res.status(status.OK).json(users)
       })
       // TODO add error handling action
       .on(ERROR, next)
@@ -33,10 +33,10 @@ export default {
 
     userCreate
       .on(SUCCESS, user => {
-        res.status(Status.CREATED).json(user)
+        res.status(status.CREATED).json(user)
       })
       .on(VALIDATION_ERROR, error => {
-        res.status(Status.BAD_REQUEST).json({
+        res.status(status.BAD_REQUEST).json({
           type: 'ValidationError',
           details: error.details
         })

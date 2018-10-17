@@ -23,7 +23,8 @@ const mockDependencies = {
   errorHandler: { test: 'errorHandler' }
 }
 const mockExpressRouter = {
-  use: jest.fn(() => mockExpressRouter)
+  use: jest.fn(() => mockExpressRouter),
+  get: jest.fn(() => mockExpressRouter)
 }
 
 express.Router.mockImplementation(() => mockExpressRouter)
