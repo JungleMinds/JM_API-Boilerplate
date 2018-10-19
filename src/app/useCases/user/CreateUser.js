@@ -1,16 +1,16 @@
 import EventStore from '../../EventStore'
 import User from '../../../domain/user'
 
+import { SUCCESS, ERROR, VALIDATION_ERROR } from './types'
+
 class CreateUser extends EventStore {
   constructor({ usersRepository }) {
     super()
     this.usersRepository = usersRepository
-    CreateUser.setOutputs(['SUCCESS', 'ERROR', 'VALIDATION_ERROR'])
+    this.outputs = { SUCCESS, ERROR, VALIDATION_ERROR }
   }
 
   async execute(userData) {
-    const { SUCCESS, ERROR, VALIDATION_ERROR } = this.outputs
-
     const user = new User(userData)
     try {
       const newUser = await this.usersRepository.create(user)
