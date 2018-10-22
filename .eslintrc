@@ -14,11 +14,7 @@
     "no-console": [
       1,
       {
-        "allow": [
-          "info",
-          "warn",
-          "error"
-        ]
+        "allow": ["info", "warn", "error"]
       }
     ],
     "eol-last": ["error", "always"]
