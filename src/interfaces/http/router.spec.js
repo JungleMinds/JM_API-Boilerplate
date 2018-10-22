@@ -4,9 +4,10 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import methodOverride from 'method-override'
+import status from 'http-status'
 import controller from './utils/createControllerRoutes'
 
-import router from './router'
+import router, { apiWelcome } from './router'
 
 jest.mock('express-status-monitor')
 jest.mock('cors')
@@ -23,7 +24,12 @@ const mockDependencies = {
   errorHandler: { test: 'errorHandler' }
 }
 const mockExpressRouter = {
-  use: jest.fn(() => mockExpressRouter)
+  use: jest.fn(() => mockExpressRouter),
+  get: jest.fn(() => mockExpressRouter)
+}
+const mockRoute = {
+  status: jest.fn(() => mockRoute),
+  json: jest.fn(() => mockRoute)
 }
 
 express.Router.mockImplementation(() => mockExpressRouter)
@@ -50,10 +56,20 @@ describe('interfaces/http/Router', () => {
     expect(compression).toHaveBeenCalled()
 
     // routes
+    expect(mockExpressRouter.get).toHaveBeenCalledWith('/', apiWelcome)
+
     expect(mockExpressRouter.use).toHaveBeenCalledWith(
       '/user',
       controller('user')
     )
+  })
+
+  it('should handle the API index route with a welcome message', () => {
+    apiWelcome(null, mockRoute, null)
+    expect(mockRoute.status).toHaveBeenCalledWith(status.OK)
+    expect(mockRoute.json).toHaveBeenCalledWith({
+      message: 'welcome to JungleMinds API V 0.1'
+    })
   })
 
   it('should provide the main router with the API router as a subroute', () => {
