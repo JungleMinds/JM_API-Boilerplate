@@ -10,13 +10,11 @@
     "!src/index.js",
     "!<rootDir>/package.spec.js"
   ],
-  "coverageReporters": [
-    "lcov",
-    "text"
-  ],
-  "testMatch": [
-    "<rootDir>/package.spec.js",
-    "<rootDir>/src/**/?(*.)spec.js"
-  ],
-  "testEnvironment": "node"
+  "coverageReporters": ["lcov", "text"],
+  "testMatch": ["<rootDir>/package.spec.js", "<rootDir>/src/**/?(*.)spec.js"],
+  "testEnvironment": "node",
+  "transform": {
+    "^.+\\.js$": "babel-jest"
+  },
+  "transformIgnorePatterns": ["node_modules/(?!@org/domain)$"]
 }

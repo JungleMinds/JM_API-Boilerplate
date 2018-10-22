@@ -8,17 +8,13 @@
   "parserOptions": {
     "ecmaVersion": 2017
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "jest"],
   "rules": {
     "prettier/prettier": "error",
     "no-console": [
       1,
       {
-        "allow": [
-          "info",
-          "warn",
-          "error"
-        ]
+        "allow": ["info", "warn", "error"]
       }
     ],
     "eol-last": ["error", "always"]
