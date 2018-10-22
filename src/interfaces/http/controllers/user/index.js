@@ -6,16 +6,40 @@ export default {
   get router() {
     const router = Router()
 
-    router.get('/', this.index)
-    router.get('/:id', this.getById)
-    router.post('/', this.create)
-    router.put('/:id', this.update)
-    router.delete('/:id', this.delete)
+    this.routeHandlers = this.createRouteHandlers()
+
+    router.get('/', this.routeHandlers.index)
+    router.get('/:id', this.routeHandlers.getById)
+    router.post('/', this.routeHandlers.create)
+    router.put('/:id', this.routeHandlers.update)
+    router.delete('/:id', this.routeHandlers.delete)
+
     return router
   },
 
+  createRouteHandlers() {
+    return {
+      index: inject(({ userGetAll }) => (req, res, next) =>
+        this.index(userGetAll, req, res, next)
+      ),
+      create: inject(({ userCreate }) => (req, res, next) =>
+        this.create(userCreate, req, res, next)
+      ),
+
+      getById: inject(({ userGet }) => (req, res, next) =>
+        this.getById(userGet, req, res, next)
+      ),
+      update: inject(({ userUpdate }) => (req, res, next) =>
+        this.update(userUpdate, req, res, next)
+      ),
+      delete: inject(({ userDelete }) => (req, res, next) =>
+        this.delete(userDelete, req, res, next)
+      )
+    }
+  },
+
   //inject(middlewareFactory): resolves the middleware per request.
-  index: inject(({ userGetAll }) => (req, res, next) => {
+  index: (userGetAll, req, res, next) => {
     const { SUCCESS, ERROR } = userGetAll.outputs
 
     userGetAll
@@ -26,9 +50,9 @@ export default {
       .on(ERROR, next)
 
     userGetAll.execute()
-  }),
+  },
 
-  create: inject(({ userCreate }) => (req, res, next) => {
+  create: (userCreate, req, res, next) => {
     const { SUCCESS, ERROR, VALIDATION_ERROR } = userCreate.outputs
 
     userCreate
@@ -43,10 +67,19 @@ export default {
       })
       // TODO add error handling action
       .on(ERROR, next)
-    userCreate.execute(req.body)
-  }),
 
-  getById: inject(({ userGet }) => (req, res, next) => {}),
-  update: inject(({ userUpdate }) => (req, res, next) => {}),
-  delete: inject(({ userDelete }) => (req, res, next) => {})
+    userCreate.execute(req.body)
+  },
+
+  getById: (userGet, req, res, next) => {
+    // do nothing
+  },
+
+  update: (userUpdate, req, res, next) => {
+    // do nothing
+  },
+
+  delete: (userDelete, req, res, next) => {
+    // do nothing
+  }
 }
