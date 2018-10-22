@@ -6,7 +6,7 @@ import createConfig from './config'
 import Application from './app/Application'
 import { GetAllUsers, CreateUser } from './app/useCases/user'
 
-import { UserRepository } from './infrastructure/repositories/user/index'
+import UserRepository from './infrastructure/repositories/user'
 
 import Server from './interfaces/http/Server'
 import router from './interfaces/http/router'
