@@ -10,13 +10,7 @@
     "!src/index.js",
     "!<rootDir>/package.spec.js"
   ],
-  "coverageReporters": [
-    "lcov",
-    "text"
-  ],
-  "testMatch": [
-    "<rootDir>/package.spec.js",
-    "<rootDir>/src/**/?(*.)spec.js"
-  ],
+  "coverageReporters": ["lcov", "text"],
+  "testMatch": ["<rootDir>/src/**/?(*.)spec.js"],
   "testEnvironment": "node"
-}
+  }
