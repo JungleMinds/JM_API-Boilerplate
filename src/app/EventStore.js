@@ -12,7 +12,7 @@ class EventStore extends EventEmitter {
     }
 
     throw new Error(
-      `Invalid output "${output}" to EventStore ${this.constructor.name}.`
+      `Invalid output '${output}' to EventStore ${this.constructor.name}.`
     )
   }
 }
