@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import compression from 'compression'
 import methodOverride from 'method-override'
 import favicon from 'serve-favicon'
+import status from 'http-status'
 import controller from './utils/createControllerRoutes'
 
 export default ({
@@ -34,9 +35,7 @@ export default ({
     .use(bodyParser.json())
     .use(compression())
 
-  apiRouter.get('/', (req, res, next) => {
-    res.status(200).json({ message: 'welcome to JungleMinds API V 0.1' })
-  })
+  apiRouter.get('/', apiWelcome)
 
   /*
    * Add your API routes here
@@ -47,4 +46,8 @@ export default ({
   router.use(errorHandler)
 
   return router
+}
+
+export const apiWelcome = (req, res, next) => {
+  res.status(status.OK).json({ message: 'welcome to JungleMinds API V 0.1' })
 }
