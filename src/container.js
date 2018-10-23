@@ -7,6 +7,7 @@ import Application from './app/Application'
 import { GetAllUsers, CreateUser } from './app/useCases/user'
 
 import UserRepository from './infrastructure/repositories/user'
+import models from './infrastructure/database/models'
 
 import Server from './interfaces/http/Server'
 import router from './interfaces/http/router'
@@ -58,6 +59,12 @@ container.register({
 container.register({
   userGetAll: asClass(GetAllUsers),
   userCreate: asClass(CreateUser)
+})
+
+// Database
+container.register({
+  database: asValue(models.ORM),
+  UserModel: asValue(models.UserModel)
 })
 
 export default container
