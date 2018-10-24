@@ -1,0 +1,11 @@
+
+.vscode
+.idea
+.gitignore
+.DS_Store
+.npmrc
+.prettierrc
+
+coverage
+node_modules
+PULL_REQUEST_TEMPLATE.md
