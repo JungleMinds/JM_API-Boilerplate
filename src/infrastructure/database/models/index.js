@@ -11,7 +11,13 @@ const config = createConfig(ENV).db
 const ORM = new sequelize(config.database, config.username, config.password, {
   host: config.host,
   dialect: config.dialect,
-  operatorsAliases: false
+  operatorsAliases: sequelize.Op,
+  pool: {
+    max: 5,
+    idle: 30000,
+    acquire: 60000
+  },
+  logging: false
 })
 
 fs.readdirSync(__dirname)
