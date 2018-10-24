@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 const COMMIT_HASH = process.env.COMMIT_HASH || 'N.A.'
+const DATABASE_URL = process.env.DATABASE_URL
 
 const config = (ENV = 'development') => {
   let envConfig = {}
@@ -9,15 +10,14 @@ const config = (ENV = 'development') => {
 
   try {
     envConfig = require(path.join(__dirname, 'environments', ENV)).default
-    if (process.env.DATABASE_URL) {
-      dbConfig = process.env.DATABASE_URL
+    if (DATABASE_URL) {
+      dbConfig = DATABASE_URL
     }
 
     if (fs.existsSync(path.join(__dirname, './database.js'))) {
       dbConfig = require('./database.js')[ENV]
     }
   } catch (err) {
-    console.log(err)
     throw new Error(`Can't find a config for the environment '${ENV}'`)
   }
 

@@ -3,14 +3,14 @@ module.exports = {
     username: 'pguser',
     password: 'pguser',
     database: 'db_dev',
-    host: 'postgresql',
+    host: 'postgres',
     dialect: 'postgres'
   },
   test: {
     username: 'pguser',
     password: 'pguser',
     database: 'db_test',
-    host: 'postgresql',
+    host: 'postgres',
     dialect: 'postgres'
   },
   production: process.env.DATABASE_URL
