@@ -13,16 +13,21 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgres://pguser:pguser@dbpostgres/db_dev
+      DATABASE_URL: postgres://pguser:pguser@dbpostgres/dbdev
       PORT: 4050
   dbpostgres:
     image: postgres
     restart: always
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
     ports:
       - '5432:5432'
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pguser
-      POSTGRES_DB: db_dev
+      POSTGRES_DB: dbdev
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
