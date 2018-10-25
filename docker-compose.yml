@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   app:
     build: .
@@ -13,6 +13,7 @@ services:
     env_file:
       - .env
     environment:
+      DATABASE_URL: postgres://pguser:pguser@dbpostgres/db_dev
       PORT: 4050
   dbpostgres:
     image: postgres
