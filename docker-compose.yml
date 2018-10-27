@@ -5,7 +5,6 @@ services:
     volumes:
       - ./:/home/node/api
     working_dir: /home/node/api
-    command: npm start
     depends_on:
       - dbpostgres
     ports:
