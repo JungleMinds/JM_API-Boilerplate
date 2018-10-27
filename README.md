@@ -56,11 +56,24 @@ It should only receive user input (like URL parameters), pass it on to the use 
 
 ## Prerequisites
 
+#### Docker
+
 Install [Docker](https://www.docker.com/) on your system.
 
 - [Install instructions](https://docs.docker.com/installation/mac/) for Mac OS X
 - [Install instructions](https://docs.docker.com/installation/ubuntulinux/) for Ubuntu Linux
 - [Install instructions](https://docs.docker.com/installation/) for other platforms
+
+#### Environment Variables
+
+The initial (default) environment variables have been set for you in the `.env` file. If you need to have custom variables in your dev process you can use a `.env.local` file to override those. The application will use the following files in the following order to create a final set of variables:
+
+1. `.env`
+2. `.env.local`
+3. `.env.<environment>`
+4. `.env.<environment>.local`
+
+A server (via docker container) will **ONLY** read the `.env` file, so server specific variables should either be passed along in the build command (`ENV_VAR=value <build command>`) or in the server configuration.
 
 ## Setup
 
@@ -72,7 +85,7 @@ Install [Docker](https://www.docker.com/) on your system.
 
 4. Run `docker-compose down` It will Stops containers and removes containers, networks, volumes, and images created by `up`.
 
-The app should then be running on your docker daemon on the port you specified in your `.env` file (default: `4050`)
+The app should then be running on your docker daemon on the port you specified in your `.env` file (default: `4050`) or override (see Prerequisites > Environment Variables)
 
 ## Scripts
 

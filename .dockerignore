@@ -9,3 +9,6 @@
 coverage
 node_modules
 .github
+.env.local
+.env.*
+.env.*.local
