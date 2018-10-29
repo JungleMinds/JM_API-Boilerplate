@@ -12,5 +12,4 @@ RUN npm i
 COPY ./ /home/node/app/
 
 CMD ["npm","start"]
-#RUN npm run start
 EXPOSE $PORT
