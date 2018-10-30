@@ -1,7 +1,7 @@
-import Log4js from 'Log4js'
+import log4js from 'log4js'
 
 export default ({ config }) => {
-  Log4js.configure(config.logging)
+  log4js.configure(config.logging)
 
-  return Log4js.getLogger()
+  return log4js.getLogger()
 }
