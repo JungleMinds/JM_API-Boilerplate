@@ -1,6 +1,6 @@
 # JM API Node
 
-[![CircleCI](https://circleci.com/gh/JungleMinds/JM_API-Boilerplate/tree/master.svg?style=svg&circle-token=296fc8427df847c138b554a24e0d06e8ece2d793)](https://circleci.com/gh/JungleMinds/JM_API-Boilerplate/tree/master)
+[![CircleCI](https://circleci.com/gh/JungleMinds/JM_API-Boilerplate/tree/master.svg?style=shield&circle-token=296fc8427df847c138b554a24e0d06e8ece2d793)](https://circleci.com/gh/JungleMinds/JM_API-Boilerplate/tree/master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-f3df49.svg?style=flat-square)](http://standardjs.com)
 ![Nodejs: version](https://img.shields.io/badge/node-%3E%3D8-brightgreen.svg?style=flat-square)
