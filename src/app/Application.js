@@ -15,8 +15,6 @@ class Application {
           )
         )
         .catch(err => {
-          //TODO remove the first logger.warning
-          this.logger.warn(this.database.config)
           this.logger.warn(`Unable to connect to the database: ${err}`)
         })
     }

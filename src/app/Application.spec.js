@@ -34,7 +34,7 @@ describe('app/Application', () => {
     mockDatabase.authenticate.mockRejectedValue('error')
     expect(mockDatabase.authenticate).toHaveBeenCalledTimes(1)
     expect(mockLogger.info).not.toHaveBeenCalled()
-    expect(mockLogger.warn).toHaveBeenCalledTimes(2)
+    expect(mockLogger.warn).toHaveBeenCalledTimes(1)
     expect(mockServer.start).toHaveBeenCalledTimes(1)
   })
 
