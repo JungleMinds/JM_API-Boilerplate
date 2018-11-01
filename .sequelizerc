@@ -1,5 +1,3 @@
-const ENV = process.env.NODE_ENV || 'development';
-
 module.exports = {
   config: './src/config/database.js',
   'migrations-path': './src/infrastructure/database/migrations',
