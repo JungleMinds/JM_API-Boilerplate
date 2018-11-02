@@ -11,6 +11,8 @@
 .DS_Store
 .env.local
 .env.*.local
+/data/*
+/postgres
 
 # Testing
 /coverage

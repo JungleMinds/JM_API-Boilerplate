@@ -16,4 +16,9 @@ describe('container', () => {
     expect(container.cradle).toHaveProperty('containerMiddleware')
     expect(container.cradle).toHaveProperty('errorHandler')
   })
+
+  it('should have registered database dependencies', () => {
+    expect(container.cradle).toHaveProperty('database')
+    expect(container.cradle).toHaveProperty('UserModel')
+  })
 })

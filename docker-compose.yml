@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  app:
+    build: .
+    volumes:
+      - ./:/home/node/api
+    working_dir: /home/node/api
+    command: npm start
+    depends_on:
+      - dbpostgres
+    ports:
+      - $PORT:$PORT
+    env_file:
+      - .env
+    environment:
+      DB_URL: $DB_URL
+      PORT: $PORT
+  dbpostgres:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - $DB_PORT:$DB_PORT
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: $DB_NAME
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - $DB_ADMIN_PORT:$DB_ADMIN_PORT
