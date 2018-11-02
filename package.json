@@ -13,7 +13,7 @@
     "test:coverage": "npm run test -- --coverage",
     "test:coverage:watch": "npm run test -- --coverage --watchAll",
     "serve": "npm run build && node dist/main.js",
-    "lint": "eslint \"src/**/*.js\" \"scripts/**/*.js\"",
+    "lint": "eslint \"src/**/*.js\" \"scripts/**/*.js\" && prettier --list-different \"src/**/*.js\" \"scripts/**/*.js\" | snazzy",
     "precommit": "npm run lint"
   },
   "author": "Jungle Minds <info@jungleminds.com>",
@@ -69,6 +69,7 @@
     "husky": "1.1.1",
     "jest": "23.6.0",
     "nodemon": "1.18.4",
-    "prettier": "1.14.3"
+    "prettier": "1.14.3",
+    "snazzy": "8.0.0"
   }
 }
