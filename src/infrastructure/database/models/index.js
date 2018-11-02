@@ -7,7 +7,7 @@ const ENV = process.env.NODE_ENV
 
 const db = {}
 
-const config = createConfig(ENV).db
+const config = createConfig(ENV).database
 const ORM = new sequelize(config.database, config.username, config.password, {
   host: config.host,
   dialect: config.dialect,
