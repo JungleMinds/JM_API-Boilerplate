@@ -7,6 +7,8 @@
 [![Blazing Fast](https://img.shields.io/badge/speed-blazing%20%F0%9F%94%A5-brightgreen.svg)](https://twitter.com/acdlite/status/974390255393505280)
 [![dependencies Status](https://david-dm.org/JungleMinds/JM_API-Boilerplate/status.svg)](https://david-dm.org/JungleMinds/JM_API-Boilerplate)
 [![devDependencies Status](https://david-dm.org/JungleMinds/JM_API-Boilerplate/dev-status.svg)](https://david-dm.org/JungleMinds/JM_API-Boilerplate?type=dev)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6650af2ec672c4005480/maintainability)](https://codeclimate.com/github/JungleMinds/JM_API-Boilerplate/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/6650af2ec672c4005480/test_coverage)](https://codeclimate.com/github/JungleMinds/JM_API-Boilerplate/test_coverage)
 
 A boilerplate for web APIs using NodeJS
 
