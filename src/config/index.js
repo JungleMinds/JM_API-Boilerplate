@@ -4,7 +4,6 @@ const COMMIT_HASH = process.env.COMMIT_HASH || 'N.A.'
 
 const config = (ENV = 'development') => {
   let envConfig = {}
-  let dbConfig
 
   try {
     envConfig = require(path.join(__dirname, 'environments', ENV)).default
