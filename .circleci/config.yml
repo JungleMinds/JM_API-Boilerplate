@@ -3,35 +3,100 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
+defaults: &defaults
+  docker:
       - image: circleci/node:8.11
+  working_directory: ~/repo
+jobs:
+  prepare:
+    <<: *defaults
+    steps:
+      - run:
+          name:  Download cc-test-reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - cc-test-reporter
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
+#  build:
+#    <<: *defaults
+#    steps:
+#      - checkout
+#      # Download and cache dependencies
+#      - restore_cache:
+#          keys:
+#            - v1-dependencies-{{ checksum "package.json" }}
+#            # fallback to using the latest cache if no exact match is found
+#            - v1-dependencies-
 
-    working_directory: ~/repo
+#      - run: npm install --production
 
+#      - save_cache:
+#          paths:
+#            - node_modules
+#          key: v1-dependencies-{{ checksum "package.json" }}
+
+#      # run build!
+#      - run: npm start
+
+  coverage:
+    <<: *defaults
     steps:
       - checkout
-
+      - attach_workspace:
+          at: ~/repo/tmp
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-test-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-test-dependencies-
 
       - run: npm install
 
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-test-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
-      - run: npm test
+      - run:
+          name: Run Coverage tests
+          command: |
+            npm run test:coverage
+            ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.json coverage/lcov.info
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - codeclimate.json
+
+  upload-coverage:
+    <<: *defaults
+    environment:
+      - CC_TEST_REPORTER_ID: df3abd3219266522d7d6e0a50c9a6258a7e96b76be38eaf886fac185a8a48356
+    steps:
+      - attach_workspace:
+          at: ~/repo/tmp
+      - run:
+          name: Upload coverage results to Code Climate
+          command: |
+            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - prepare
+#      - build:
+#          requires:
+#            - coverage
+      - coverage:
+          requires:
+            - prepare
+      - upload-coverage:
+          requires:
+            - prepare
+            - coverage
