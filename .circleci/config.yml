@@ -42,6 +42,28 @@ jobs:
 
 #      # run build!
 #      - run: npm start
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dev-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - dev-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: dev-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Run Linting tests
+          command: |
+            npm run lint && node scripts/utils/checkWipCommits
 
   coverage:
     <<: *defaults
@@ -52,16 +74,16 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-test-dependencies-{{ checksum "package.json" }}
+            - dev-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-test-dependencies-
+            - dev-dependencies-
 
       - run: npm install
 
       - save_cache:
           paths:
             - node_modules
-          key: v1-test-dependencies-{{ checksum "package.json" }}
+          key: dev-dependencies-{{ checksum "package.json" }}
 
       - run:
           name: Run Coverage tests
@@ -89,14 +111,18 @@ workflows:
   version: 2
   commit:
     jobs:
+      - lint
       - prepare
 #      - build:
 #          requires:
+#            - lint
 #            - coverage
       - coverage:
           requires:
+            - lint
             - prepare
       - upload-coverage:
           requires:
+            - lint
             - prepare
             - coverage
