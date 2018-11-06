@@ -13,8 +13,7 @@
     "test:coverage": "npm run test -- --coverage",
     "test:coverage:watch": "npm run test -- --coverage --watchAll",
     "serve": "npm run build && node dist/main.js",
-    "lint": "eslint \"src/**/*.js\" \"scripts/**/*.js\" && prettier --list-different \"src/**/*.js\" \"scripts/**/*.js\" | snazzy",
-    "precommit": "npm run lint"
+    "lint": "eslint \"src/**/*.js\" \"scripts/**/*.js\" && prettier --list-different \"src/**/*.js\" \"scripts/**/*.js\" | snazzy"
   },
   "author": "Jungle Minds <info@jungleminds.com>",
   "contributors": [
