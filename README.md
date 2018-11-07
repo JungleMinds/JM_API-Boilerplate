@@ -72,7 +72,7 @@ Install [Docker](https://www.docker.com/) on your system.
 
 4. Run `docker-compose down` It will Stops containers and removes containers, networks, volumes, and images created by `up`.
 
-The app should then be running on your docker daemon on port `4050`
+The app should then be running on your docker daemon on the port you specified in your `.env` file (default: `4050`)
 
 ## Scripts
 
