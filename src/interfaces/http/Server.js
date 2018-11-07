@@ -25,9 +25,10 @@ class Server {
     return new Promise(resolve => {
       this.http = this.express.listen(this.config.web.port, () => {
         const { port } = this.http.address()
+        this.logger.info(`Version ${this.config.version}`)
         this.logger.info(this.motd)
         this.logger.info(`Listening at port ${port}`)
-        this.logger.info(`on pId [${process.pid}]`)
+        this.logger.info(`Running on pId [${process.pid}]`)
         resolve()
       })
     })
