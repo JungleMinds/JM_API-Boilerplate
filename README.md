@@ -53,3 +53,39 @@ It should only receive user input (like URL parameters), pass it on to the use 
             ├── errors
             ├── logging
             └── utils
+
+## Prerequisites
+
+Install [Docker](https://www.docker.com/) on your system.
+
+- [Install instructions](https://docs.docker.com/installation/mac/) for Mac OS X
+- [Install instructions](https://docs.docker.com/installation/ubuntulinux/) for Ubuntu Linux
+- [Install instructions](https://docs.docker.com/installation/) for other platforms
+
+## Setup
+
+1. Run `npm i`. It will install all dependencies.
+
+2. Run `docker-compose build`. It will pull a base images from the Docker registry.
+
+3. Run `docker-compose up`. This will bootstrap a new app in your container optionaly add optionaly `-d` Detached mode: Run containers in the background.
+
+4. Run `docker-compose down` It will Stops containers and removes containers, networks, volumes, and images created by `up`.
+
+The app should then be running on your docker daemon on port `4050`
+
+## Scripts
+
+This boilerplate comes with a collection of npm scripts to make your life easier, you'll run them with `npm run <script name>`
+
+`npm run start` run the application
+
+`npm run start:watch` run the application in watch mood on every file change
+
+`npm run test` run all unit tests for the appliction
+
+`npm run test:watch` run all unit tests for the appliction in watch mood on every file change
+
+`npm run test:coverage` Create a coverage report for your code and determine whether your coverage is high enough
+
+`npm run lint` Run linting on the application codebase
