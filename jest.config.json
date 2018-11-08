@@ -1,4 +1,7 @@
 {
+  "reporters": ["default", ["jest-junit", {
+    "outputDirectory": "./coverage"
+  }]],
   "coverageThreshold": {
     "global": {
       "functions": 80,

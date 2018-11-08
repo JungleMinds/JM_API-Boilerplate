@@ -88,12 +88,18 @@ jobs:
       - run:
           name: Run Coverage tests
           command: |
-            npm run test:coverage
+            npm run test:coverage --ci
             ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.json coverage/lcov.info
+          environment:
+            JEST_JUNIT_OUTPUT: "~/coverage/js-test-results.xml"
       - persist_to_workspace:
           root: tmp
           paths:
             - codeclimate.json
+      - store_test_results:
+          path: ~/coverage
+      - store_artifacts:
+          path: ~/coverage
 
   upload-coverage:
     <<: *defaults

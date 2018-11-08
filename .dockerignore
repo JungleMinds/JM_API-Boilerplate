@@ -1,14 +1,18 @@
-
 .vscode
 .idea
 .gitignore
 .DS_Store
 .npmrc
 .prettierrc
-
-coverage
-node_modules
 .github
+
+# Testing
+/coverage
+
+# Dependencies
+node_modules
+
+# Environment
 .env.local
 .env.*
 .env.*.local
