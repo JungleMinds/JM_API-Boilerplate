@@ -1,0 +1,13 @@
+branch-defaults:
+  master:
+    environment: $CIRCLE_BRANCH-JMNodeAPI
+
+global:
+  application_name: JM_Node_API
+  default_ec2_keyname: Node_AWS
+  default_platform:
+    arn:aws:elasticbeanstalk:eu-central-1::platform/Docker running
+    on 64bit Amazon Linux/2.12.4
+  default_region: eu-central-1
+  profile: null
+  sc: git
