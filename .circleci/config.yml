@@ -5,14 +5,14 @@
 version: 2
 defaults: &defaults
   docker:
-      - image: circleci/node:8.11
+    - image: circleci/node:8.11
   working_directory: ~/repo
 jobs:
   prepare:
     <<: *defaults
     steps:
       - run:
-          name:  Download cc-test-reporter
+          name: Download cc-test-reporter
           command: |
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
@@ -22,26 +22,6 @@ jobs:
           paths:
             - cc-test-reporter
 
-#  build:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      # Download and cache dependencies
-#      - restore_cache:
-#          keys:
-#            - v1-dependencies-{{ checksum "package.json" }}
-#            # fallback to using the latest cache if no exact match is found
-#            - v1-dependencies-
-
-#      - run: npm install --production
-
-#      - save_cache:
-#          paths:
-#            - node_modules
-#          key: v1-dependencies-{{ checksum "package.json" }}
-
-#      # run build!
-#      - run: npm start
   lint:
     <<: *defaults
     steps:
@@ -107,16 +87,31 @@ jobs:
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
 
+  deploy:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
+
+      - run:
+          name: Installing deployment dependencies
+          working_directory: /
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install python-pip python-dev build-essential-
+            sudo pip install awsebcli --upgrade
+
+      - run:
+          name: Deploying
+          command: eb deploy $CIRCLE_BRANCH-JMNodeAPI
+
 workflows:
   version: 2
   commit:
     jobs:
       - lint
       - prepare
-#      - build:
-#          requires:
-#            - lint
-#            - coverage
       - coverage:
           requires:
             - lint
@@ -126,3 +121,9 @@ workflows:
             - lint
             - prepare
             - coverage
+      - deploy:
+          filters:
+            branches:
+              only:
+                - staging
+                - master
