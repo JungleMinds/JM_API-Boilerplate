@@ -1,0 +1,6 @@
+aws_access_key = ""
+aws_secret_key = ""
+aws_account_id = ""
+aws_region     = ""
+aws_resource_prefix = "JM_"
+    
