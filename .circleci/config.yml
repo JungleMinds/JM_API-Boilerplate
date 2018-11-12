@@ -5,7 +5,7 @@
 version: 2
 defaults: &defaults
   docker:
-    - image: circleci/node:8.11
+    - image: docker:18.09-git
   working_directory: ~/repo
 jobs:
   prepare:
@@ -87,24 +87,55 @@ jobs:
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
 
-  deploy:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:8.11
+  deploy-prod:
+    <<: *defaults
     steps:
       - checkout
+      - setup_remote_docker
 
       - run:
           name: Installing deployment dependencies
-          working_directory: /
           command: |
             sudo apt-get -y -qq update
             sudo apt-get install python-pip python-dev build-essential-
             sudo pip install awsebcli --upgrade
-
+            sudo pip install docker-compose --upgrade
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/jm_api.tar
       - run:
-          name: Deploying
-          command: eb deploy $CIRCLE_BRANCH-JMNodeAPI
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/jm_api.tar | true
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=jm_api -t jm_api .
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/jm_api.tar jm_api
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/jm_api.tar
+      - run:
+          name: Run tests
+          command: |
+            docker-compose -f ./docker-compose.test.yml up
+      - deploy:
+          name: Push application Docker image
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              login="$(aws ecr get-login)"
+              ${login}
+              docker tag jm_api "${ECR_ENDPOINT}/jm_api:${CIRCLE_SHA1}"
+              docker push "${ECR_ENDPOINT}/jm_api:${CIRCLE_SHA1}"
+            fi
 
 workflows:
   version: 2
@@ -121,7 +152,7 @@ workflows:
             - lint
             - prepare
             - coverage
-      - deploy:
+      - deploy-prod:
           filters:
             branches:
               only:
