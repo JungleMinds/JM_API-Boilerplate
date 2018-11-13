@@ -5,7 +5,7 @@
 version: 2
 defaults: &defaults
   docker:
-    - image: docker:18.09-git
+    - image: circleci/node:8.11
   working_directory: ~/repo
 jobs:
   prepare:
@@ -92,7 +92,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-
       - run:
           name: Installing deployment dependencies
           command: |
