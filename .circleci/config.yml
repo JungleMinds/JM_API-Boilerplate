@@ -87,7 +87,7 @@ jobs:
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
 
-  deploy-prod:
+  deployment:
     <<: *defaults
     steps:
       - checkout
@@ -108,7 +108,6 @@ jobs:
       - run:
           name: Load Docker image layer cache
           command: |
-            set +o pipefail
             docker load -i /caches/jm_api.tar | true
       - run:
           name: Build application Docker image
@@ -152,7 +151,12 @@ workflows:
             - lint
             - prepare
             - coverage
-      - deploy-prod:
+      - deployment:
+           requires:
+            - lint
+            - prepare
+            - coverage
+            - upload-coverage
           filters:
             branches:
               only:
