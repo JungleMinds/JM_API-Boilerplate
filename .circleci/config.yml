@@ -96,11 +96,9 @@ jobs:
           name: Installing deployment dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install python -y
-            sudo apt-get install python-pip -y
-            pip install awscli --upgrade
-            pip install awsebcli --upgrade
-            pip install docker-compose --upgrade
+            sudo apt-get -y -qq install awscli
+            sudo apt-get -y -qq install awsebcli
+            sudo apt-get -y -qq install docker-compose
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
