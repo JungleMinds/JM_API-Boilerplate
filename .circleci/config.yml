@@ -151,6 +151,11 @@ workflows:
             - prepare
             - coverage
       - deployment:
+          requires:
+            - lint
+            - prepare
+            - coverage
+            - upload-coverage
           filters:
             branches:
               only:
