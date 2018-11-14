@@ -122,7 +122,9 @@ jobs:
       - run:
           name: Installing deployment dependencies
           command: |
-            sudo apt-get install -y python python-dev python-pip python-virtualenv
+            sudo apt-get install -y python python-dev python-pip python-virtualenv virtualenv
+            virtualenv venv
+            . venv/bin/activate
             sudo rm -rf /var/lib/apt/lists/*
             sudo pip install rsa --upgrade
             sudo pip install awscli --upgrade
