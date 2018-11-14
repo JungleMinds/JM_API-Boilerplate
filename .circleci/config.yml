@@ -86,12 +86,39 @@ jobs:
           name: Upload coverage results to Code Climate
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
-
-  deployment:
+  build:
     <<: *defaults
     steps:
       - checkout
       - setup_remote_docker
+      - run:
+          name: Setup common environment variables
+          command: |
+            echo 'export ECR_REPOSITORY_NAME="${AWS_RESOURCE_NAME_PREFIX}"' >> $BASH_ENV
+            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
+      - run:
+          name: Build image
+          command: |
+            docker build -t $FULL_IMAGE_NAME .
+      - run:
+          name: Save image to an archive
+          command: |
+            mkdir docker-image
+            docker save -o docker-image/image.tar $FULL_IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker-image
+
+  deployment:
+    <<: *defaults
+    environment:
+      AWS_DEFAULT_OUTPUT: json
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: workspace
       - run:
           name: Installing deployment dependencies
           command: |
@@ -100,37 +127,30 @@ jobs:
             sudo pip install rsa --upgrade
             sudo pip install awscli --upgrade
             sudo pip install docker-compose --upgrade
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - /caches/jm_api.tar
       - run:
-          name: Load Docker image layer cache
+          name: Load Docker image
           command: |
-            docker load -i /caches/jm_api.tar | true
+            docker load --input workspace/docker-image/image.tar
       - run:
-          name: Build application Docker image
+          name: Setup common environment variables
           command: |
-            docker build --cache-from=jm_api -t jm_api .
+            echo 'export ECR_REPOSITORY_NAME="${AWS_RESOURCE_NAME_PREFIX}"' >> $BASH_ENV
+            echo 'export ECS_CLUSTER_NAME="${AWS_RESOURCE_NAME_PREFIX}-cluster"' >> $BASH_ENV
+            echo 'export ECS_SERVICE_NAME="${AWS_RESOURCE_NAME_PREFIX}-service"' >> $BASH_ENV
       - run:
-          name: Save Docker image layer cache
+          name: Push image
           command: |
-            mkdir -p /caches
-            docker save -o /caches/jm_api.tar jm_api
-      - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - /caches/jm_api.tar
-      - deploy:
-          name: Push application Docker image
+            . venv/bin/activate
+            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$CIRCLE_SHA1
+      - run:
+          name: Deploy
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              login="$(aws ecr get-login)"
-              ${login}
-              docker tag jm_api "${ECR_ENDPOINT}/jm_api:${CIRCLE_SHA1}"
-              docker push "${ECR_ENDPOINT}/jm_api:${CIRCLE_SHA1}"
-            fi
+            . venv/bin/activate
+            export ECS_TASK_FAMILY_NAME="${AWS_RESOURCE_NAME_PREFIX}-service"
+            export ECS_CONTAINER_DEFINITION_NAME="${AWS_RESOURCE_NAME_PREFIX}-service"
+            export EXECUTION_ROLE_ARN="arn:aws:iam::$AWS_ACCOUNT_ID:role/${AWS_RESOURCE_NAME_PREFIX}-ecs-execution-role"
+            ./deploy.sh
 
 workflows:
   version: 2
@@ -147,12 +167,19 @@ workflows:
             - lint
             - prepare
             - coverage
+      - build:
+          requires:
+            - lint
+            - prepare
+            - coverage
+            - upload-coverage
       - deployment:
           requires:
             - lint
             - prepare
             - coverage
             - upload-coverage
+            - build
           filters:
             branches:
               only:
