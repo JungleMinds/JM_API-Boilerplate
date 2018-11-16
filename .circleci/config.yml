@@ -5,14 +5,14 @@
 version: 2
 defaults: &defaults
   docker:
-      - image: circleci/node:8.11
+    - image: circleci/node:8.11
   working_directory: ~/repo
 jobs:
   prepare:
     <<: *defaults
     steps:
       - run:
-          name:  Download cc-test-reporter
+          name: Download cc-test-reporter
           command: |
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
@@ -22,26 +22,26 @@ jobs:
           paths:
             - cc-test-reporter
 
-#  build:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      # Download and cache dependencies
-#      - restore_cache:
-#          keys:
-#            - v1-dependencies-{{ checksum "package.json" }}
-#            # fallback to using the latest cache if no exact match is found
-#            - v1-dependencies-
+  #  build:
+  #    <<: *defaults
+  #    steps:
+  #      - checkout
+  #      # Download and cache dependencies
+  #      - restore_cache:
+  #          keys:
+  #            - v1-dependencies-{{ checksum "package.json" }}
+  #            # fallback to using the latest cache if no exact match is found
+  #            - v1-dependencies-
 
-#      - run: npm install --production
+  #      - run: npm install --production
 
-#      - save_cache:
-#          paths:
-#            - node_modules
-#          key: v1-dependencies-{{ checksum "package.json" }}
+  #      - save_cache:
+  #          paths:
+  #            - node_modules
+  #          key: v1-dependencies-{{ checksum "package.json" }}
 
-#      # run build!
-#      - run: npm start
+  #      # run build!
+  #      - run: npm start
   lint:
     <<: *defaults
     steps:
@@ -106,17 +106,30 @@ jobs:
           name: Upload coverage results to Code Climate
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
+  deployment:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
+    staging:
+      branch: master
+      heroku:
+        appname: jm-node-api
 workflows:
   version: 2
   commit:
     jobs:
       - lint
       - prepare
-#      - build:
-#          requires:
-#            - lint
-#            - coverage
+      #      - build:
+      #          requires:
+      #            - lint
+      #            - coverage
       - coverage:
           requires:
             - lint
@@ -126,3 +139,9 @@ workflows:
             - lint
             - prepare
             - coverage
+      - deployment:
+          requires:
+            - lint
+            - prepare
+            - coverage
+            - upload-coverage
