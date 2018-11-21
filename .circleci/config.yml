@@ -118,8 +118,8 @@ jobs:
             docker ps
             heroku git:remote -a 
             heroku container:login
-            heroku container:push app -v --app $HEROKU_APP_NAME
-            heroku container:release app --app $HEROKU_APP_NAME
+            heroku container:push app -v
+            heroku container:release app
 
 workflows:
   version: 2
