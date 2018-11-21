@@ -86,16 +86,6 @@ jobs:
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
 
-  build:
-    <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: Build and Start Docker container
-          command: docker-compose up --build -d
-
   deployment:
     <<: *defaults
     steps:
@@ -106,6 +96,9 @@ jobs:
           name: Install heroku cli
           command: |
             wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+      - run:
+          name: Build and Start Docker container
+          command: docker-compose up --build -d
       - run:
           name: Configure heroku
           command: bash .circleci/setup-heroku.sh
