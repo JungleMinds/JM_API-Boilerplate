@@ -1,4 +1,4 @@
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 4050
 
 export default {
   web: {
