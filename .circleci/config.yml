@@ -113,8 +113,9 @@ jobs:
           fingerprints:
             - $HEROKU_SSH_FINGERPRINT
       - deploy:
-          name: Deploy to Heroku Container Service
+          name: Deploy to Heroku Container Servicedoc
           command: |
+            docker ps
             heroku git:remote -a $HEROKU_APP_NAME
             heroku container:login
             heroku container:push app -v
