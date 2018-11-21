@@ -118,7 +118,8 @@ jobs:
             heroku git:remote -a $HEROKU_APP_NAME
             heroku container
             heroku container:login
-            heroku container:push web -v
+            heroku container:push app -v
+            heroku container:release app
 
 workflows:
   version: 2
