@@ -129,16 +129,9 @@ workflows:
             - lint
             - prepare
             - coverage
-      - build:
-          requires:
-            - lint
-            - prepare
-            - coverage
-            - upload-coverage
       - deployment:
           requires:
             - lint
             - prepare
             - coverage
             - upload-coverage
-            - build
