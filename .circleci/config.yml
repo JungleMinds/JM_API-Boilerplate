@@ -106,7 +106,6 @@ jobs:
           name: Install heroku cli
           command: |
             wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-            PATH $PATH:/usr/local/heroku/bin
       - run:
           name: Configure heroku
           command: bash .circleci/setup-heroku.sh
