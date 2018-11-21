@@ -116,7 +116,6 @@ jobs:
           name: Deploy to Heroku Container Service
           command: |
             heroku git:remote -a $HEROKU_APP_NAME
-            heroku container
             heroku container:login
             heroku container:push app -v
             heroku container:release app
