@@ -102,3 +102,11 @@ This boilerplate comes with a collection of npm scripts to make your life easier
 `npm run test:coverage` Create a coverage report for your code and determine whether your coverage is high enough
 
 `npm run lint` Run linting on the application codebase
+
+## Run CI localy
+
+This boilerplate uses CircleCI as main piplein to run checks test and deploy
+
+1. Run Script `sh .circleci/run-ci-locally.sh <commit hash> <Branch>`. It will trigger build from the spesific commit hash and branch.
+
+2. Check CircleCI status (https://circleci.com/gh/JungleMinds/JM_API-Boilerplate)

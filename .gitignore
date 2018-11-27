@@ -13,6 +13,11 @@
 .env.*.local
 /data/*
 /postgres
+terraform.tfvars
+terraform.tfstate.backup
+terraform.tfstate
+.terraform
+
 
 # Testing
 /coverage

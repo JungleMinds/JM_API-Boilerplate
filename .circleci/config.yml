@@ -5,14 +5,14 @@
 version: 2
 defaults: &defaults
   docker:
-      - image: circleci/node:8.11
+    - image: circleci/node:8.11
   working_directory: ~/repo
 jobs:
   prepare:
     <<: *defaults
     steps:
       - run:
-          name:  Download cc-test-reporter
+          name: Download cc-test-reporter
           command: |
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
@@ -22,26 +22,6 @@ jobs:
           paths:
             - cc-test-reporter
 
-#  build:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      # Download and cache dependencies
-#      - restore_cache:
-#          keys:
-#            - v1-dependencies-{{ checksum "package.json" }}
-#            # fallback to using the latest cache if no exact match is found
-#            - v1-dependencies-
-
-#      - run: npm install --production
-
-#      - save_cache:
-#          paths:
-#            - node_modules
-#          key: v1-dependencies-{{ checksum "package.json" }}
-
-#      # run build!
-#      - run: npm start
   lint:
     <<: *defaults
     steps:
@@ -107,16 +87,56 @@ jobs:
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
 
+  deployment:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Installing deployment dependencies
+          command: |
+            apt-get -y -qq update
+            apt-get install python-pip python-dev build-essential -y
+            pip install awsebcli --upgrade
+            pip install docker-compose --upgrade
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/jm_api.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            docker load -i /caches/jm_api.tar | true
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=jm_api -t jm_api .
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/jm_api.tar jm_api
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/jm_api.tar
+      - deploy:
+          name: Push application Docker image
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              login="$(aws ecr get-login)"
+              ${login}
+              docker tag jm_api "${ECR_ENDPOINT}/jm_api:${CIRCLE_SHA1}"
+              docker push "${ECR_ENDPOINT}/jm_api:${CIRCLE_SHA1}"
+            fi
+
 workflows:
   version: 2
   commit:
     jobs:
       - lint
       - prepare
-#      - build:
-#          requires:
-#            - lint
-#            - coverage
       - coverage:
           requires:
             - lint
@@ -126,3 +146,14 @@ workflows:
             - lint
             - prepare
             - coverage
+      - deployment:
+          requires:
+            - lint
+            - prepare
+            - coverage
+            - upload-coverage
+          filters:
+            branches:
+              only:
+                - staging
+                - master
