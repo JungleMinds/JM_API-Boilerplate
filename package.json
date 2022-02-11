@@ -24,7 +24,7 @@
   "dependencies": {
     "@babel/core": "7.1.5",
     "@babel/register": "7.0.0",
-    "ajv": "6.5.4",
+    "ajv": "6.12.3",
     "awilix": "4.0.0",
     "awilix-express": "1.1.0",
     "body-parser": "1.18.3",
