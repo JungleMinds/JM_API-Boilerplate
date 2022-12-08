@@ -35,7 +35,7 @@
     "dotenv-expand": "4.2.0",
     "esm": "3.0.84",
     "event-stream": "3.3.4",
-    "express": "4.16.3",
+    "express": "4.17.3",
     "express-status-monitor": "1.2.3",
     "helmet": "3.14.0",
     "http-status": "1.2.0",
